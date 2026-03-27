@@ -12,6 +12,8 @@ init_db(app)
 CORS(app)
 
 
+
+
 # GET /api/menu - Return all menu items
 @app.route('/api/menu', methods=['GET'])
 def get_menu():
@@ -165,3 +167,7 @@ with app.app_context():
         init_db()
     except Exception as e:
         print("DB init error:", e)
+
+@app.route("/")
+def home():
+    return "Home Cook Orders Platform is running!"
