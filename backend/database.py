@@ -10,7 +10,7 @@ def init_db(app):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     # Import models to register them with db
-    from models import MenuItem, Order
+    from backend.models import MenuItem, Order
     with app.app_context():
         db.create_all()
     return db

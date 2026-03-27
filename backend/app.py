@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
 from backend.database import init_db, get_db, db
-from models import MenuItem, Order
+from backend.models import MenuItem, Order
 from sqlalchemy import func
 
 app = Flask(__name__)
