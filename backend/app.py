@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
@@ -6,6 +7,7 @@ from models import MenuItem, Order
 from sqlalchemy import func
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 init_db(app)
 CORS(app)
 
@@ -157,3 +159,9 @@ def get_prep_list():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
+
+with app.app_context():
+    try:
+        init_db()
+    except Exception as e:
+        print("DB init error:", e)
