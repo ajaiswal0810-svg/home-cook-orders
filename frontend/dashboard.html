@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cook Dashboard - Home Cook Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Cook Dashboard</h1>
+        <p>Manage menu items and track customer orders</p>
+        <nav>
+            <a href="index.html">Customer Menu</a>
+            <a href="#add-item-section">Add Item</a>
+            <a href="#orders-section">View Orders</a>
+            <a href="#prep-section">Prep List</a>
+            <a href="#" onclick="refreshDashboard()">Refresh</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Error Messages -->
+        <div id="error-msg" class="message message-error" style="display: none;"></div>
+        <div id="success-msg" class="message message-success" style="display: none;"></div>
+
+        <!-- Add Menu Item Section -->
+        <section id="add-item-section" class="section">
+            <h2>Add New Menu Item</h2>
+            <form id="add-item-form">
+                <div class="form-group">
+                    <label for="item-name">Item Name *</label>
+                    <input 
+                        type="text" 
+                        id="item-name" 
+                        name="name" 
+                        placeholder="e.g., Butter Chicken, Biryani" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="item-price">Price (₹) *</label>
+                    <input 
+                        type="number" 
+                        id="item-price" 
+                        name="price" 
+                        step="0.01" 
+                        min="0" 
+                        placeholder="e.g., 150.00" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="item-portions">Portions Available *</label>
+                    <input 
+                        type="number" 
+                        id="item-portions" 
+                        name="portions" 
+                        min="0" 
+                        placeholder="e.g., 10" 
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="item-cutoff">Order Cutoff Time *</label>
+                    <input 
+                        type="datetime-local" 
+                        id="item-cutoff" 
+                        name="cutoff_time" 
+                        required
+                    >
+                </div>
+
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary btn-block">Add Menu Item</button>
+                    <button type="reset" class="btn btn-secondary btn-block">Clear</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders-section" class="section">
+            <h2>Customer Orders</h2>
+            <div id="orders-container">
+                <div class="loading">Loading orders...</div>
+            </div>
+            <table id="orders-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Status</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-tbody">
+                </tbody>
+            </table>
+            <div id="no-orders" class="empty-state" style="display: none;">
+                No orders yet. Check back soon!
+            </div>
+        </section>
+
+        <!-- Prep List Section -->
+        <section id="prep-section" class="section">
+            <h2>Prep List (Undelivered Orders)</h2>
+            <div class="btn-group" style="margin-bottom: 15px;">
+                <button onclick="refreshPrepList()" class="btn btn-secondary">Refresh Prep List</button>
+            </div>
+            <div id="prep-container">
+                <div class="loading">Loading prep list...</div>
+            </div>
+            <table id="prep-table" style="display: none;">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Total Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="prep-tbody">
+                </tbody>
+            </table>
+            <div id="no-prep" class="empty-state" style="display: none;">
+                All orders delivered! Great work! 🎉
+            </div>
+        </section>
+
+        <!-- Current Menu Section -->
+        <section id="menu-section" class="section" style="margin-top: 40px; border-top: 2px solid #e0e0e0; padding-top: 30px;">
+            <h2>Current Menu</h2>
+            <div id="menu-container">
+                <div class="loading">Loading menu...</div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 20px; color: #999; font-size: 12px; margin-top: 40px;">
+        <p>&copy; 2026 Home Cook Platform. Keep cooking! 👨‍🍳</p>
+        <p style="margin-top: 5px;">Last refreshed: <span id="last-refresh">never</span></p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize dashboard on page load
+        window.addEventListener('load', function() {
+            loadDashboardData();
+            setInterval(loadDashboardData, 10000); // Auto-refresh every 10 seconds
+        });
+    </script>
+</body>
+</html>
