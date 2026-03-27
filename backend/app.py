@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
-from database import init_db, get_db, db
+from backend.database import init_db, get_db, db
 from models import MenuItem, Order
 from sqlalchemy import func
 
