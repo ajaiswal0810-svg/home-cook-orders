@@ -1,5 +1,5 @@
 from datetime import datetime
-from backend.database import db
+from database import db
 
 
 class MenuItem(db.Model):

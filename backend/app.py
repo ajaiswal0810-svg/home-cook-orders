@@ -2,8 +2,8 @@ import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from datetime import datetime
-from backend.database import init_db, get_db, db
-from backend.models import MenuItem, Order
+from database import init_db, get_db, db
+from models import MenuItem, Order
 from sqlalchemy import func
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 init_db(app)
 CORS(app)
 
-
+# hello
 
 
 # GET /api/menu - Return all menu items
